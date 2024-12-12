@@ -1,0 +1,6 @@
+venv
+**/__pycache__
+data/timescaledb
+backup
+.vscode
+.pytest_cache
