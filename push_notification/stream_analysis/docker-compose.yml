@@ -1,0 +1,10 @@
+services:
+  stream_analysis:
+    build:
+      context: ./
+    ports:
+      - 5556:5556
+    networks:
+      - broker_network
+    environment:
+      SOCKET_CONNECTION: tcp://broker:5555

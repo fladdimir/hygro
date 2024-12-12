@@ -1,0 +1,48 @@
+services:
+  timescaledb:
+    image: timescale/timescaledb:latest-pg17
+    ports:
+      - 5432:5432
+    networks:
+      - broker_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER"]
+      interval: 30s
+      retries: 10
+      start_period: 30s
+      start_interval: 1s
+      timeout: 3s
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      TS_TUNE_MEMORY: 256MB # var required on rpi
+    volumes:
+      - ./data/timescaledb:/var/lib/postgresql/data
+    command: ["postgres", "-c", "log_statement=all"]
+
+  sub_store:
+    build:
+      context: ./
+      dockerfile: ./sub_store.Dockerfile
+    depends_on:
+      timescaledb:
+        condition: service_healthy
+    networks:
+      - broker_network
+    environment:
+      DB_CONNECTION: postgresql://postgres:postgres@timescaledb:5432/postgres
+      SOCKET_CONNECTION: tcp://broker:5555
+    command: ["python3", "./sub_store.py", "--loglevel", "info"]
+
+  query_api:
+    build:
+      context: ./
+      dockerfile: ./query_api.Dockerfile
+    depends_on:
+      timescaledb:
+        condition: service_healthy
+    networks:
+      - broker_network
+    environment:
+      DB_CONNECTION: postgresql://postgres:postgres@timescaledb:5432/postgres
+    command: ["python3", "./query_api.py", "--loglevel", "info"]

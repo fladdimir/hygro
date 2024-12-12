@@ -1,0 +1,6 @@
+*
+!.gitignore
+!release
+!example.frpc.toml
+!example.frps.toml
+!notes.md
