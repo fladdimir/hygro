@@ -1,0 +1,14 @@
+services:
+  broker:
+    build:
+      context: ./
+    ports:
+      - 5554:5554
+      - 5555:5555
+    networks:
+      - broker_network
+
+networks:
+  broker_network:
+    name: broker_network
+    driver: bridge

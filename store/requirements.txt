@@ -1,0 +1,11 @@
+psycopg2-binary
+sqlalchemy
+alembic
+pytz
+marshmallow_dataclass
+pyzmq
+python-dateutil
+flask
+
+black
+pytest

@@ -1,0 +1,9 @@
+services:
+  socket_io_server:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    networks:
+      - broker_network
+    environment:
+      SOCKET_CONNECTION: tcp://broker:5555

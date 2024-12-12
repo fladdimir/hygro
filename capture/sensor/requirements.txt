@@ -1,0 +1,3 @@
+pyzmq
+marshmallow_dataclass
+adafruit-circuitpython-dht

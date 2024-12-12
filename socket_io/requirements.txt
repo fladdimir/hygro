@@ -1,0 +1,4 @@
+pyzmq
+marshmallow_dataclass
+python-socketio
+aiohttp

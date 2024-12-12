@@ -1,0 +1,5 @@
+flask
+pywebpush
+valkey-glide
+pyzmq
+marshmallow_dataclass

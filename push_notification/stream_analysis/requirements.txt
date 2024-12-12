@@ -1,0 +1,2 @@
+pyzmq
+marshmallow_dataclass
