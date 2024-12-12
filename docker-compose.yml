@@ -1,0 +1,5 @@
+include:
+  - ./broker/docker-compose.yml
+  - ./socket_io/docker-compose.yml
+  - ./store/docker-compose.yml
+  - ./web-display/docker-compose.yml

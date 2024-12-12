@@ -1,0 +1,11 @@
+# frp server address:
+serverAddr = "127.0.0.1"
+serverPort = 7000
+
+[[proxies]]
+name = "test-tcp"
+type = "tcp"
+localIP = "127.0.0.1"
+localPort = 5001
+remotePort = 8080
+transport.bandwidthLimit = "1MB"

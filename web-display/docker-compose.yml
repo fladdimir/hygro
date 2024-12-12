@@ -1,0 +1,35 @@
+services:
+  fe_build:
+    build:
+      context: ./
+    volumes:
+      - ./dist:/output
+
+  nginx:
+    depends_on:
+      fe_build:
+        condition: service_completed_successfully
+      query_api:
+        condition: service_started
+      socket_io_server:
+        condition: service_started
+    image: nginx:alpine
+    volumes:
+      - ./etc_nginx/:/etc/nginx/ # config
+      - ./dist:/usr/share/nginx/html # fe
+    ports:
+      - 5000:5000
+    networks:
+      - broker_network
+
+  nginx_ssl_auth:
+    depends_on:
+      nginx:
+        condition: service_started
+    image: nginx:alpine
+    volumes:
+      - ./etc_nginx_ssl_ba/:/etc/nginx/ # config
+    ports:
+      - 5001:5001
+    networks:
+      - broker_network
